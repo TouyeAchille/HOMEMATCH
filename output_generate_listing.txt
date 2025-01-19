@@ -1,0 +1,79 @@
+1. Neighborhood: Westwood Hills
+Price: $1,200,000
+Bedrooms: 4
+Bathrooms: 3.5
+House Size: 3,500 sqft
+
+Description: This luxurious 4-bedroom, 3.5-bathroom home in Westwood Hills features high-end finishes and stunning views of the city skyline. The gourmet kitchen is a chef's dream with top-of-the-line appliances and quartz countertops. The spacious master suite includes a walk-in closet and spa-like bathroom. Enjoy outdoor entertaining on the expansive deck overlooking the landscaped backyard. With a prime location near shops, restaurants, and schools, this is the perfect family home.
+
+2. Neighborhood: Lakefront Estates
+Price: $2,500,000
+Bedrooms: 5
+Bathrooms: 4.5
+House Size: 4,800 sqft
+
+Description: Live the lakefront lifestyle in this exquisite 5-bedroom, 4.5-bathroom estate. The grand foyer leads to a formal living room with floor-to-ceiling windows showcasing panoramic views of the water. The gourmet kitchen features custom cabinetry, granite countertops, and a breakfast nook. The outdoor oasis includes a pool, spa, and boat dock. With a private beach and easy access to water activities, this home is perfect for those who love waterfront living.
+
+3. Neighborhood: Oakwood Heights
+Price: $900,000
+Bedrooms: 3
+Bathrooms: 2.5
+House Size: 2,300 sqft
+
+Description: Nestled in the desirable Oakwood Heights neighborhood, this 3-bedroom, 2.5-bathroom home offers modern amenities and stylish design. The open-concept floor plan includes a gourmet kitchen with stainless steel appliances and a spacious living room with a gas fireplace. The master suite features a walk-in closet and a luxurious en-suite bathroom with a soaking tub. Relax in the backyard oasis with a covered patio and lush landscaping. Don't miss out on this turnkey property in a prime location.
+
+4. Neighborhood: Hillside Manor
+Price: $700,000
+Bedrooms: 4
+Bathrooms: 3
+House Size: 2,100 sqft
+
+Description: Welcome to this charming 4-bedroom, 3-bathroom home in Hillside Manor. The light-filled living room features a cozy fireplace and hardwood floors. The updated kitchen boasts granite countertops and stainless steel appliances. The master suite includes a private balcony with views of the rolling hills. Entertain guests in the backyard with a deck and fire pit. With easy access to hiking trails and parks, this home is perfect for outdoor enthusiasts.
+
+5. Neighborhood: Riverfront Estates
+Price: $3,000,000
+Bedrooms: 6
+Bathrooms: 5.5
+House Size: 5,500 sqft
+
+Description: This stunning 6-bedroom, 5.5-bathroom estate in Riverfront Estates offers luxury living at its finest. The grand foyer leads to a formal dining room and a living room with vaulted ceilings and a fireplace. The chef's kitchen features custom cabinetry, high-end appliances, and a breakfast nook. The expansive master suite includes a sitting area, dual walk-in closets, and a spa-like bathroom. Enjoy outdoor entertaining on the covered patio with a built-in barbecue and pool. This riverfront property is a true masterpiece.
+
+6. Neighborhood: Mountain View Heights
+Price: $850,000
+Bedrooms: 3
+Bathrooms: 2.5
+House Size: 2,400 sqft
+
+Description: Located in the sought-after Mountain View Heights neighborhood, this 3-bedroom, 2.5-bathroom home offers stunning mountain views and a tranquil setting. The open-concept floor plan features a gourmet kitchen with granite countertops and a breakfast bar. The master suite includes a walk-in closet and a spa-like bathroom with a soaking tub. Relax in the backyard oasis with a covered patio, fire pit, and hot tub. With easy access to hiking trails and parks, this home is perfect for outdoor enthusiasts.
+
+7. Neighborhood: Lakeside Retreat
+Price: $1,500,000
+Bedrooms: 4
+Bathrooms: 3.5
+House Size: 3,200 sqft
+
+Description: Escape to this peaceful 4-bedroom, 3.5-bathroom retreat in Lakeside Retreat. The expansive living room features a stone fireplace and vaulted ceilings. The chef's kitchen boasts custom cabinetry, granite countertops, and a wine fridge. The master suite includes a sitting area, dual walk-in closets, and a luxurious en-suite bathroom. Relax in the backyard with a covered patio, pool, and spa. With a private dock and access to water activities, this home is perfect for those who love lakefront living.
+
+8. Neighborhood: Willow Creek Estates
+Price: $950,000
+Bedrooms: 5
+Bathrooms: 4
+House Size: 3,000 sqft
+
+Description: This spacious 5-bedroom, 4-bathroom home in Willow Creek Estates offers modern amenities and elegant design. The gourmet kitchen features custom cabinetry, quartz countertops, and a breakfast nook. The master suite includes a walk-in closet and a spa-like bathroom with a soaking tub. Entertain guests in the backyard with a covered patio, fire pit, and built-in barbecue. With easy access to shops, restaurants, and schools, this home is perfect for families.
+
+9. Neighborhood: Sunset Ridge
+Price: $750,000
+Bedrooms: 3
+Bathrooms: 2.5
+House Size: 2,200 sqft
+
+Description: Welcome to this charming 3-bedroom, 2.5-bathroom home in the desirable Sunset Ridge neighborhood. The light-filled living room features a gas fireplace and hardwood floors. The updated kitchen boasts granite countertops and stainless steel appliances. The master suite includes a walk-in closet and a luxurious en-suite bathroom with a soaking tub. Relax in the backyard oasis with a covered patio and lush landscaping. Don't miss out on this turnkey property in a prime location.
+
+10. Neighborhood: Pinecrest Heights
+Price: $1,100,000
+Bedrooms: 4
+Bathrooms: 3.5
+House Size: 3,400 sqft
+
+Description: Nestled in the prestigious Pinecrest Heights neighborhood, this 4-bedroom, 3.5-bathroom home offers luxury living at its finest. The grand foyer leads to a formal dining room and a living room with a gas fireplace. The chef's kitchen features custom cabinetry, high-end appliances, and a breakfast nook. The expansive master suite includes a sitting area, dual walk-in closets, and a spa-like bathroom with a steam shower. Entertain guests in the backyard with a covered patio, pool, and built-in barbecue. This home is a true masterpiece.
