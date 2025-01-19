@@ -1,4 +1,4 @@
-# HomeMatch
+# HomeMatch : Personalized Real Estate Agent
 The goal is to create a personalized experience for each buyer, making the property search process more engaging and tailored to individual preferences. This application leverages large language models LLMs and vector databases to transform standard real estate listings into personalized narratives that resonate with potential buyers' unique preferences and needs.
 
 ### Core Components of HomeMatch
