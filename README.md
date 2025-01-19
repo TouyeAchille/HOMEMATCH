@@ -5,7 +5,6 @@ The goal is to create a personalized experience for each buyer, making the prope
 Understanding Buyer Preferences:
 - Buyers will input their requirements and preferences, such as location, property type, budget, amenities, and lifestyle choices.
 - The application uses LLMs to interpret these inputs in natural language, understanding nuanced requests beyond basic filters.
-
 ## Integrating with a Vector Database:
 
 - Connect "HomeMatch" with a vector database, where all available property listings are stored.
