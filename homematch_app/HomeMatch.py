@@ -62,7 +62,7 @@ with gr.Blocks() as demo:
     llm_response = gr.Textbox(label="AI HomeMatch Assistant", visible=True)
 
     # Submit button
-    submit_btn = gr.Button("Submit")
+    submit_btn = gr.Button("Submit", variant="primary")
 
     submit_btn.click(
         fn=collect_preferences,
@@ -83,6 +83,6 @@ with gr.Blocks() as demo:
 
 # run script
 if __name__ == "__main__":
-    demo.launch(share=False)
+    demo.launch(share=False, debug=True)
 
    
