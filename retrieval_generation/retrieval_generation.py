@@ -1,110 +1,133 @@
 import os
 import gradio as gr
+import argparse
+from pathlib import Path
+import shutil
+import logging
+import dotenv
+import mlflow
 from langchain_chroma import Chroma
-from langchain.chains import RetrievalQA
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain.schema.output_parser import StrOutputParser
+from langchain.prompts.chat import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+
+# Load environment variables from .env file
+dotenv.load_dotenv()
+
+# logging configuration
+logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
+logger = logging.getLogger()
+
+# create experiment
+mlflow.set_experiment("homematch")
 
 
+def load_db_vectors(args):
 
-
-def load_db_vectors():
+    # Ensure API key is set
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("Missing OPENAI_API_KEY environment variable.")
 
     Openai_Embeddings = OpenAIEmbeddings(
         model="text-embedding-3-small", api_key=os.getenv("OPENAI_API_KEY")
     )
 
-    # path to local db vectors
-    filepath = os.path.join(os.getcwd(), "indexing", "db_vectors_listings")
-
+    # load to local db vectors
     text_db = Chroma(
         embedding_function=Openai_Embeddings,
         collection_name="openai",
-        persist_directory=filepath,
+        persist_directory=args     # path_to_db_vectors
     )
 
     return text_db
 
+@mlflow.trace(span_type="Chain", name="llm_text_retrieval")
+def llm_text_retrieval(args):
+    
+    system_prompt = """You are a helpful AI assistant. Your task is to identify the best property matches for buyers preferences based solely on the context provided.
 
-def llm_text_retrieval(user_query):
+    Focus on finding properties that align closely with these preferences and provide the most suitable options
+    """
+    user_query = args.user_query
 
-    llm_openai = ChatOpenAI(model="gpt-4o-mini", temperature=0.7, max_tokens=2000)
+    llm_openai = ChatOpenAI(model="gpt-4o-mini", temperature=0.7, max_tokens=2000, api_key=os.getenv("OPENAI_API_KEY"))
 
-    text_generation = RetrievalQA.from_chain_type(
-        llm=llm_openai,
-        chain_type="stuff",
-        retriever=load_db_vectors().as_retriever(search_kwargs={"k": 4}),
+    # Create custom prompts
+    system_message_prompt = SystemMessagePromptTemplate.from_template(system_prompt)
+
+    human_message_prompt = HumanMessagePromptTemplate.from_template(
+        """Based on the preferences provided below, recommend the most suitable properties. Use only the given context to ensure relevance and accuracy.  
+                                                                    Buyer Preferences: {user_query}
+                                                                    Available Properties (Context): {context}
+                                                                    Provide a clear and concise recommendation highlighting the best matches. If no suitable properties are found, state that no relevant matches are available
+                                                                    """
     )
 
-    response = text_generation.invoke(user_query)["result"]
+    chat_prompt = ChatPromptTemplate.from_messages(
+        [system_message_prompt, human_message_prompt]
+    )
+
+    # Create the retriever
+    retriever = load_db_vectors(args.path_to_db_vectors).as_retriever(search_kwargs={"k": 4}).invoke(args.user_query)
+
+    text_snippets = [text.page_content for text in retriever]
+
+    # Combine text ontexts
+    combined_text_context = "\n".join(text_snippets)
+
+    text_generation = chat_prompt | llm_openai | StrOutputParser()
+
+    # Generate a response
+    response = text_generation.invoke(
+        {"user_query": user_query, "context": combined_text_context}
+    )
 
     return response
 
 
-def collect_preferences(
-    bedrooms: int,
-    bathrooms: int,
-    location: str,
-    budget: float,
-    additional_requirements: str,
-    min_house_size: int,
-):
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="load database vectors for real estate listings.",
+        fromfile_prefix_chars="@")
+        
+    parser.add_argument(
+        "--path_to_db_vectors",
+        type=str,
+        help="provide generate listings txt file for indexing ",
+        required=False,
+        default="~/HOMEMATCH/data_storage/db_vectors_listings"
+        )
+    # add user query
+    parser.add_argument(
+        "--user_query",
+        type=str,
+        help="provide user query for property matching",
+        required=True
+        )
 
-    # buyers preferences as user_query
-    query = f"""
-		 bedrooms: {bedrooms},
-		"bathrooms":{bathrooms},
-		"location": {location},
-		"budget":   {budget},
-		"min_house_size": '{min_house_size},
-		"additional_requirements": {additional_requirements}
-		"""
-    return query
-
-
-# Gradio interface
-with gr.Blocks() as demo:
-    gr.Markdown("# HomeMatch")
-
-    gr.Markdown(
-        """We’re here to help you find the perfect home! Please provide your preferences below to make sure we match you with the best options
-				Once you provide your preferences, we’ll help you find the best matches that suit your needs!"""
-    )
-
-    # Input for structured questions (query user)
-    bedrooms = gr.Number(label="Number of Bedrooms", value=None)
-    bathrooms = gr.Number(label="Number of Bathrooms", value=None)
-    min_house_size = gr.Number(label="minimum house size (in Sqft)", value=None)
-    location = gr.Textbox(label="Preferred Location", placeholder="e.g., Los Angeles")
-    budget = gr.Number(label="Budget (in USD)", value=None)
-    additional_requirements = gr.Textbox(
-        label="Additional Requirements",
-        placeholder="""e.g., garden, swimming pool, garage, Which transportation options are important to you? What are most important things for you in choosing this property?, etc..  """,
-    )
-
-    # Output
-    user_query = gr.Textbox(label="Collecting Buyer Preferences", visible=False)
-
-    llm_response = gr.Textbox(label="AI HomeMatch Assistant", visible=True)
-
-    # Submit button
-    submit_btn = gr.Button("Submit")
-
-    submit_btn.click(
-        fn=collect_preferences,
-        inputs=[
-            bedrooms,
-            bathrooms,
-            location,
-            budget,
-            additional_requirements,
-            min_house_size,
-        ],
-        outputs=user_query,
-    )
-
-    submit_btn.click(fn=llm_text_retrieval, inputs=user_query, outputs=llm_response)
+    args = parser.parse_args()
+        
+    return args
 
 
+# run script
 if __name__ == "__main__":
-    # Launch the app
-    demo.launch(share=False)
+    # parse args
+    args = parse_args()
+
+    # run llm text retrieval
+    response = llm_text_retrieval(args)
+    print(response)
+
+
+   
+
+    
+    
+
+    

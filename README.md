@@ -13,3 +13,15 @@ Understanding Buyer Preferences:
 - Ensure personalization emphasizes characteristics appealing to the buyer without altering factual information about the property.
 ### Listing Presentation:
 - Output the personalized listing(s) as a text description of the listing.
+
+# Installation
+
+
+# Configuration Note
+Before running the experiments, make sure to configure the following:
+
+Environment Variables: Set the following environment variables if you are using OpenAI LLMs and embedding models:
+OPENAI_API_KEY: Required for accessing OpenAI LLMs, Required for accessing OpenAI embedding models.
+
+Store your 
+

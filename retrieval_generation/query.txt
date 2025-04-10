@@ -1,0 +1,9 @@
+Neighborhood: Grandview
+- Price:$2,500,000
+- Bedrooms: 6
+- Bathrooms: 5
+- House Size: 5,000 sqft
+Description:
+Discover the elegance of this historic 6-bedroom, 5-bathroom mansion in Grandview. 
+This beautifully restored property features grand architectural details, a sweeping staircase, and original hardwood floors. 
+The expansive grounds include manicured gardens, a pool, and outdoor entertaining spaces. Perfect for those who appreciate history

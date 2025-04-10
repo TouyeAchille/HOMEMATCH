@@ -2,6 +2,8 @@ import os
 import shutil
 import logging
 import argparse
+import mlflow
+import dotenv
 
 from pathlib import Path
 from langchain_chroma import Chroma
@@ -10,12 +12,30 @@ from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import CharacterTextSplitter
 
 
+# Load environment variables from .env file
+dotenv.load_dotenv()
 
+# logging configuration
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
+# create experiment
+mlflow.set_experiment("homematch")
 
-def go(args) -> None:
+@mlflow.trace(span_type="indexing", name="indexing")
+def indexing(args) -> None:
+    """
+    Function to index real estate listings and store them in a vector database.
+    Args:
+        args (argparse.Namespace): Command-line arguments containing paths and configurations.
+    Returns:
+        Chroma: A Chroma vector store instance containing the indexed listings.
+    """
+
+    # Ensure API key is set
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("Missing OPENAI_API_KEY environment variable.")
 
     # load listings
     listings = TextLoader(file_path=args.path_to_generate_listings_txt_file).load()
@@ -30,7 +50,7 @@ def go(args) -> None:
     docs = text_splitter.split_documents(listings)
 
     # Define the persist directory to store local db vectors
-    filepath = os.path.join(os.getcwd(), "db_vectors_listings")
+    filepath = os.path.join(args.dirpath_to_store_db_vectors, "db_vectors_listings")
 
     # Clear the directory if it exists
     shutil.rmtree(filepath, ignore_errors=True)
@@ -40,6 +60,8 @@ def go(args) -> None:
     listing_vectorstore_db = Chroma.from_documents(
         docs, Openai_Embeddings, collection_name="openai", persist_directory=filepath
     )
+
+    return filepath
 
 
 def parse_args():
@@ -53,6 +75,13 @@ def parse_args():
         "--path_to_generate_listings_txt_file",
         type=Path,
         help="provide generate listings txt file for indexing ",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--dirpath_to_store_db_vectors",
+        type=Path,
+        help="provide directory path to store db vectors",
         required=True,
     )
 
@@ -76,8 +105,8 @@ if __name__ == "__main__":
     args = parse_args()
 
     # run main function
-    go(args)
-
+    _=indexing(args)
+    
     # add space in logs
     print("\n")
 

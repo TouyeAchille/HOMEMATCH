@@ -10,19 +10,26 @@ from omegaconf import DictConfig
 def go(config: DictConfig):
 
     # Accessing the original working directory for generate listing
-	filepath1=os.path.join(get_original_cwd(), "dataset")
-
+	filepath1=os.path.join(get_original_cwd(), "generate_listings")
 	# run generate listings
 	subprocess.run(["make", "generate_listings"], cwd=filepath1)
 
-	# Accessing the original working directory for store listing
+
+
+	# Accessing the original working directory for store listing (indexing step)
 	filepath2=os.path.join(get_original_cwd(), "indexing")
+	# run store listings to chromadb database
+	subprocess.run(["make", "indexing"], cwd=filepath2)
+
+
+	# Accessing the original working directory for retrieval generation 
+	filepath3=os.path.join(get_original_cwd(), "retrieval_generation")
+      
+	#with open("~/HOMEMATCH/retrieval_generation/query.txt") as f:
+		#user_query = f.read().strip()  
 
 	# run store listings to chromadb database
-	subprocess.run(["make", "store_listings"], cwd=filepath2)
-
-
-
+	subprocess.run('make matching user_query="$$(cat query.txt)"', cwd=filepath3, shell=True)
 
 
 if __name__ == "__main__":

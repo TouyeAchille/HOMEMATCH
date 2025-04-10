@@ -1,1 +1,11 @@
-./homematchvenv
+ mlruns/*
+ outputs/*
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite
+*.egg-info
+*.egg
+*.whl

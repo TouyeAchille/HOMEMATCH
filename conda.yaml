@@ -1,4 +1,4 @@
-name: homematchvenv
+name: homematch_venv
 
 channels:
   - conda-forge
@@ -6,20 +6,21 @@ channels:
 
 # Install dependencies via Conda
 dependencies:
-  - python=3.10.12
-  - pyarrow=7.0.0
+  - python=3.11.6
+  - pyarrow=18.1.0
   - hydra-core=1.3.2
   - pip
   - pip:
       # Install dependencies via pip
+      - python-dotenv
       - chromadb==0.5.23
       - langchain==0.3.14
       - langchain-community==0.3.14
       - langchain-chroma==0.2.0
       - langchain-core==0.3.30
-      - langchain-openai==0.3.0
+      - langchain-openai==0.3.12
       - langchain-text-splitters==0.3.5
       - langsmith==0.2.11
-      - mlflow==2.19.0
+      - mlflow==2.20.1
       - gradio==5.13.1
       - gradio_client==1.6.0
