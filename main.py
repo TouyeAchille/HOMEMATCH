@@ -6,7 +6,6 @@ from hydra.utils import get_original_cwd
 from omegaconf import DictConfig
 
 # This automatically read the config yaml file when you run your application
-@hydra.main(version_base=None, config_path=".", config_name="config")
 def go(config: DictConfig):
 
     # Accessing the original working directory for generate listing
